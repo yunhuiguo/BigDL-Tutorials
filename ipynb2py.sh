@@ -15,7 +15,8 @@ else
     sed -i 's/%pylab/#/' $1.tmp.ipynb
 
     jupyter nbconvert --to script $1.tmp.ipynb 
-
+    
+    sed -i '1i from pyspark import SparkConf, SparkContext' $1.tmp.py
     sed -i '1i sc = SparkContext(appName="$1", conf=create_spark_conf())' $1.tmp.py
 
     mv $1.tmp.py $1.py
